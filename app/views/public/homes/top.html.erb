@@ -1,2 +1,15 @@
-<h1>Public::Homes#top</h1>
-<p>Find me in app/views/public/homes/top.html.erb</p>
+<p>ようこそ、ながのCAKEへ！<br/>
+このサイトは、ケーキ販売のECサイトになります。<br/>
+会員でない方も商品の閲覧はできますが、<br/>
+購入には会員登録が必要になります。</p>
+
+<h2>新着商品</h2>
+<% @items.each do |item| %>
+  <div>
+    <%= attachment_image_tag item, :image, :fill, 200, 200, format: 'jpeg' %>
+    <%= item.name %>
+    <%= item.tax_encluded_price %>
+  </div>
+<%end%>
+
+<%=link_to "全ての商品を見る>" ,items_path %>
