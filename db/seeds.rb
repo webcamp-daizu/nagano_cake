@@ -20,3 +20,8 @@
       phone_number: "11111111",
     )
   end
+
+  Admin.create!(
+  email: 'admin@admin',
+  password: 'adminadmin'
+  )
