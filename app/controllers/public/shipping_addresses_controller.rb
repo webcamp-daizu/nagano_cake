@@ -2,16 +2,18 @@ class Public::ShippingAddressesController < ApplicationController
 
   def index
     @address = ShippingAddress.new
-    @addresses = ShippingAddress.all
+    @addresses = current_customer.shipping_addresses.all
+    p @blogs
   end
   
   def create
     @address = ShippingAddress.new(address_params)
-    @address.customer_id = current_user.id
+    @address.customer_id = current_customer.id
     if @address.save
-      redirect_to :index
+      redirect_to shipping_addresses_path
     else
-      redirect_to :index
+      @addresses = current_customer.shipping_addresses.all
+      render :index
     end
   end
 
@@ -22,7 +24,7 @@ class Public::ShippingAddressesController < ApplicationController
   def update
     @address = ShippingAddress.find(params[:id])
     if @address.update
-      redirect_to :index
+      redirect_to shipping_addresses_path
     else
       render :edit
     end

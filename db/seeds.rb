@@ -22,6 +22,6 @@
   end
 
   Admin.create!(
-  email: 'test@test',
-  password: 'testtest'
+  email: 'admin@admin',
+  password: 'adminadmin'
   )
