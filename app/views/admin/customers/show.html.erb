@@ -1,2 +1,35 @@
-<h1>Admin::Customers#show</h1>
-<p>Find me in app/views/admin/customers/show.html.erb</p>
+<h3><%= @customer.full_name.gsub(" ", "") %>さんの会員詳細</h3>
+
+<div>会員ID</div>
+<div><%= @customer.id %></div>
+
+<div>氏名</div>
+<div><%= @customer.full_name %></div>
+
+<div>フリガナ</div>
+<div><%= @customer.full_name_kana %></div>
+
+<div>郵便番号</div>
+<div><%= @customer.post_code %></div>
+
+<div>住所</div>
+<div><%= @customer.address %></div>
+
+<div>電話番号</div>
+<div><%= @customer.phone_number %></div>
+
+<div>メールアドレス</div>
+<div><%= @customer.email %></div>
+
+<div>会員ステータス</div>
+<% if @customer.is_deleted? %>
+  <div>退会</div>
+<% else %>
+  <div>有効</div>
+<% end %>
+
+<div>
+  <%= link_to "編集する", edit_admin_customer_path(@customer) %>
+  <%= link_to "注文履歴一覧を見る", admin_root_path %>
+    <!--ソート実装未-->
+</div>
