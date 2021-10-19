@@ -1,2 +1,22 @@
-<h1>Public::Orders#new</h1>
-<p>Find me in app/views/public/orders/new.html.erb</p>
+<h1>注文情報入力</h1>
+<h2>支払方法</h2>
+
+<%= form_with url: orders_check_path,scope: :post, local: true, method: :post do |f| %>
+  <%= f.collection_radio_buttons :payment_method, Order.payment_methods_i18n, :first, :last %>
+  <h2>お届け先</h2>
+  <%= f.radio_button :address_number, 1 %>
+  <%= f.label :address_number, "ご自身の住所", value: 1 %><br>
+    <p>〒1500041 東京都渋谷区神南1丁目19-11 パークウェースクエア2 4階<br>山田花子</p>
+  <%= f.radio_button :address_number, 2 %>
+  <%= f.label :address_number, "登録済み住所から選択", value: 2 %><br>
+    <%= f.select :shipping_address_id, [ ["プログラマン講師",1], ["家電メーカー", 2] ], { class: "hoge", id: "fuga" } %><br>
+  <%= f.radio_button :address_number, 3 %>
+  <%= f.label :address_number, "新しいお届け先", value: 3 %><br>
+    <%= f.label :post_code, "郵便番号(ハイフンなし)" %>
+    <%= f.text_field :post_code %><br>
+    <%= f.label :address, "住所" %>
+    <%= f.text_field :address %><br>
+    <%= f.label :name, "宛名" %>
+    <%= f.text_field :name %><br>
+  <%= f.submit %>
+<% end %>
