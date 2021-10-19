@@ -16,14 +16,21 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    @customer = current_customer
+  end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+
+  
+  def update
+    customer = current_customer
+    if customer.update(customer_params)
+      redirect_to customer_path
+    else
+      redirect_to request.referer
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -38,6 +45,11 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # def cancel
   #   super
   # end
+  private
+
+  def customer_params
+    params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :post_code, :address, :phone_number, :email, :is_deleted)
+  end
 
   protected
 

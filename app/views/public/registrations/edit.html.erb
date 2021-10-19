@@ -1,6 +1,6 @@
 <h3><%= @customer.full_name.gsub(" ", "") %>さんの会員情報編集</h3>
 
-<%= form_with model: @customer, url: admin_customer_path(@customer), local: true do |f| %>
+<%= form_with model: @customer, url: customer_path(@customer), local: true do |f| %>
   <div>
     <spam>会員ID</spam>
     <%= @customer.id %>
@@ -38,15 +38,9 @@
     <%= f.email_field :email %>
   </div>
   
-  <div class="field">
-    <%= f.label :会員ステータス %>
-    <%= f.radio_button :is_deleted,false,checked:true %>
-    <%= f.label :有効 %>
-    <%= f.radio_button :is_deleted,true %>
-    <%= f.label :退会 %>
-  </div>
-  
   <div class="actions">
-    <%= f.submit "変更を保存" %>
+    <%= f.submit "編集内容を保存" %>
   </div>
 <% end %>
+
+<%= link_to "退会する", customer_withdraw_confirm_path %>
