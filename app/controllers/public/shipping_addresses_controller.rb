@@ -3,7 +3,6 @@ class Public::ShippingAddressesController < ApplicationController
   def index
     @address = ShippingAddress.new
     @addresses = current_customer.shipping_addresses.all
-    p @blogs
   end
   
   def create
