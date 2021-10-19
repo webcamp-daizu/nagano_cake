@@ -1,5 +1,7 @@
 <h3>ログイン</h3>
-
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
 
 <p>会員の方はこちらからログイン<p>
 <%= form_with model: @customer, url: customer_session_path, local: true do |f| %>
