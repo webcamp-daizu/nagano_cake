@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     get "/about", to: "homes#about"
     get "/customer/withdraw_confirm", to: "customers#withdraw_confirm"
     patch "/customer/withdraw", to: "customers#withdraw"
-    resource :customer, only:[:show, :edit, :update]
+    resource :customer, only:[:show]
     resources :items, only:[:index, :show]
     resources :cart_items, except:[:show, :new, :edit]
     delete "/cart_items", to: "cart_items#destroy_all"
