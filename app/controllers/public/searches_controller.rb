@@ -1,11 +1,13 @@
 class Public::SearchesController < ApplicationController
   def genre_search
+    @genres = Genre.all
     @value = params["search"]["value"]
     @how = params["search"]["how"]
     @datas = search_for(@how, @value)
   end
 
   def item_search
+    @genres = Genre.all
     @items = Item.search(params[:keyword]).page(params[:page]).per(8)
     @keyword = params[:keyword]
   end

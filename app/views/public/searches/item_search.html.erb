@@ -1,4 +1,6 @@
-<h3><%= @keyword %>一覧</h3>
+<%= render "public/searches/genre_sidebar", genres: @genres %>
+
+<h3>"<%= @keyword %>"の検索結果</h3>
 <div>（全<%= @items.total_count %>件）</div>
 
 <% @items.each do |item| %>
