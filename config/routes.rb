@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :customers, only:[:index, :show, :edit, :update]
     resources :orders, only:[:show, :update]
     resources :order_items, only:[:update]
+    get '/search', to: "searches#search"
   end
 
   devise_for :customer, skip:[:passwords], controllers:{
@@ -32,6 +33,10 @@ Rails.application.routes.draw do
     get "/orders/thankyou", to: "orders#thankyou"
     get "/orders/check", to: "orders#check"
     resources :shipping_addresses, except:[:new, :show]
+    # ジャンル検索用ルーティング
+    get '/genre_search', to: "searches#genre_search"
+    # 商品名検索用ルーティング
+    get '/item_search', to: "searches#item_search"
   end
 
 end
