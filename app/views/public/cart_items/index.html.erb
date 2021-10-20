@@ -13,7 +13,10 @@
   <tbody>
     <% @cart_items.each do |cart| %>
       <tr>
-        <td><%= cart.item.name %></td>
+        <td>
+          <%= attachment_image_tag cart.item,:image,:fill, 60, 50 %>
+          <%= cart.item.name %>
+        </td>
         <td><%= cart.item.add_tax_included_price %></td>
         <td>
           <%= "#{cart.quantity}個" %>
@@ -35,7 +38,7 @@
   <tr>
     <th>合計金額</th>
     <th><%= "#{@total}円" %></th>
-  </tr>  
+  </tr>
 </table>
 
 <%= link_to "情報入力に進む",new_order_path %>
