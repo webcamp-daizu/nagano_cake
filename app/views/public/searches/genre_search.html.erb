@@ -1,0 +1,17 @@
+<h3><%= @value %>一覧</h3>
+
+<% if @datas.empty? %>
+  <div>該当商品はありません</div>
+<% else %>
+  <% @datas.each do |data| %>
+    <div>（全<%= @datas.count %>件）</div>
+    <div>
+      <%= link_to item_path(data.id) do %>
+        <%= attachment_image_tag data, :image, :fill, 200, 150 %>
+      <% end %>
+    </div>
+    <div><%= data.name %></div>
+    <div>¥<%= data.add_tax_included_price.to_s(:delimited) %></div>
+  <% end %>
+<% end %>
+
