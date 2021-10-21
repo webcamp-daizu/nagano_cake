@@ -83,8 +83,12 @@
     </header>
 
     <main>
-      <%= yield %>
-    <main>
+      <div class="container">
+        <p><%= notice %></p>
+        <p><%= alert %></p>
+        <%= yield %>
+      </div>
+    </main>
 
     <footer>
     </footer>
