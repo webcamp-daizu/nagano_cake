@@ -1,4 +1,4 @@
-<h3><%= @customer.full_name.gsub(" ", "") %>さんの会員詳細</h3>
+<h3><%= @customer.full_name_no_blanks %>さんの会員詳細</h3>
 
 <div>会員ID</div>
 <div><%= @customer.id %></div>
@@ -30,6 +30,6 @@
 
 <div>
   <%= link_to "編集する", edit_admin_customer_path(@customer) %>
-  <%= link_to "注文履歴一覧を見る", admin_root_path %>
+  <%= link_to "注文履歴一覧を見る", admin_root_path(customer_id: @customer) %>
     <!--ソート実装未-->
 </div>

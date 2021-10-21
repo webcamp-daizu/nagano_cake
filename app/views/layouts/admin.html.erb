@@ -78,19 +78,23 @@
 
               <% end %>
             </ul>
-            
+
+            <% if admin_signed_in? %>
+              <%= render "admin/searches/form" %>
+            <% end %>
+
           </div>
         </div>
       </nav>
-      
+
     </header>
-    
+
     <main>
       <%= yield %>
     </main>
-    
+
     <footer>
     </footer>
-    
+
   </body>
 </html>

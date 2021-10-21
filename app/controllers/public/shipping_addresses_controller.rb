@@ -22,7 +22,7 @@ class Public::ShippingAddressesController < ApplicationController
   
   def update
     @address = ShippingAddress.find(params[:id])
-    if @address.update
+    if @address.update(address_params)
       redirect_to shipping_addresses_path
     else
       render :edit
@@ -37,7 +37,7 @@ class Public::ShippingAddressesController < ApplicationController
   
   private
   def address_params
-    params.permit(:name,:address,:post_code)
+    params.require(:shipping_address).permit(:name,:address,:post_code)
   end
   
 end

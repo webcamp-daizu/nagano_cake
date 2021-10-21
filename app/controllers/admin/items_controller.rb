@@ -1,7 +1,6 @@
 class Admin::ItemsController < ApplicationController
-  before_action:authenticate_admin!
   layout "admin"
-  
+
   def index
     @items = Item.page(params[:page]).per(10)
   end
@@ -14,8 +13,9 @@ class Admin::ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
-      redirect_to admin_item_path(@item)
+      redirect_to admin_item_path(@item), notice: '商品を登録しました'
     else
+      flash[:alert] = '商品の登録に失敗しました'
       render :new
     end
   end
@@ -32,8 +32,9 @@ class Admin::ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if @item.update(item_params)
-      redirect_to admin_item_path(@item)
+      redirect_to admin_item_path(@item), notice: '商品情報を更新しました'
     else
+      flash[:alert] = '商品情報の更新に失敗しました'
       render :edit
     end
   end

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :customers, only:[:index, :show, :edit, :update]
     resources :orders, only:[:show, :update]
     resources :order_items, only:[:update]
+    get '/search', to: "searches#search"
   end
 
   devise_for :customer, skip:[:passwords], controllers:{
@@ -24,7 +25,7 @@ Rails.application.routes.draw do
     get "/about", to: "homes#about"
     get "/customer/withdraw_confirm", to: "customers#withdraw_confirm"
     patch "/customer/withdraw", to: "customers#withdraw"
-    resource :customer, only:[:show, :update]
+    resource :customer, only:[:show]
     resources :items, only:[:index, :show]
     resources :cart_items, except:[:show, :new, :edit]
     delete "/cart_items", to: "cart_items#destroy_all"
@@ -35,6 +36,10 @@ Rails.application.routes.draw do
       end
     end
     resources :shipping_addresses, except:[:new, :show]
+    # ジャンル検索用ルーティング
+    get '/genre_search', to: "searches#genre_search"
+    # 商品名検索用ルーティング
+    get '/item_search', to: "searches#item_search"
   end
 
 end
