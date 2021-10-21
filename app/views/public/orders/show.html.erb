@@ -36,7 +36,7 @@
         <td><%= order_item.item.name %></td>
         <td><%= order_item.tax_included_price.to_s(:delimited) %></td>
         <td><%= order_item.quantity %></td>
-        <td><%= order_item.subtotal.to_s(:delimited) %></td>
+        <td><%= order_item.sum_of_price.to_s(:delimited) %></td>
       </tr>
     <% end %>
   </tbody>

@@ -14,10 +14,10 @@
       last_name: "test",
       first_name: "#{n + 1}",
       last_name_kana: "テスト",
-      first_name_kana: "#{n + 1}",
+      first_name_kana: "テスト",
       address: "a県",
       post_code: "0000000",
-      phone_number: "11111111",
+      phone_number: "00000000000",
     )
   end
 

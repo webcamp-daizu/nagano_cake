@@ -23,7 +23,7 @@ class Customer < ApplicationRecord
   def full_name_kana
     self.last_name_kana + " " + self.first_name_kana
   end
-  
+
   def full_name_no_blanks
     self.last_name + self.first_name
   end
@@ -34,7 +34,7 @@ class Customer < ApplicationRecord
 
   def cart_items_total_price
     sum = 0
-    self.cart_items.each { |cart_item| sum += cart_item.subtotal }
+    self.cart_items.each { |cart_item| sum += cart_item.sum_of_price }
     return sum
   end
 

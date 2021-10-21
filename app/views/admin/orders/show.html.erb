@@ -48,7 +48,7 @@
         <td><%= order_item.item.name %></td>
         <td><%= order_item.tax_included_price.to_s(:delimited) %></td>
         <td><%= order_item.quantity %></td>
-        <td><%= order_item.subtotal.to_s(:delimited) %></td>
+        <td><%= order_item.sum_of_price.to_s(:delimited) %></td>
         <td>
           <%= form_with model:[:admin, order_item], local: true do |f| %>
             <%= f.collection_select :make_status, OrderItem.make_statuses_i18n, :first, :last, { selected: order_item.make_status } %>

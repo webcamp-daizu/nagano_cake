@@ -10,7 +10,7 @@ class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :item
 
-  def subtotal
+  def sum_of_price
     (self.item.add_tax_included_price * self.quantity).round
   end
 

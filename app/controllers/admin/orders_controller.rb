@@ -2,7 +2,11 @@ class Admin::OrdersController < ApplicationController
   layout "admin"
 
   def index
-    @orders = Order.all.page(params[:page]).per(10)
+    if params[:customer_id]
+      @orders = Order.where(customer_id: params[:customer_id]).page(params[:page]).per(10)
+    else
+      @orders = Order.all.page(params[:page]).per(10)
+    end
   end
 
   def show
