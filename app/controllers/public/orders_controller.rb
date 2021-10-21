@@ -1,6 +1,6 @@
 class Public::OrdersController < ApplicationController
   before_action :authenticate_customer!
-  before_action :check_cart_is_not_empty, except: [:index, :show]
+  before_action :check_cart_is_not_empty, except: [:index, :show, :thankyou]
 
   def index
     @orders = current_customer.orders
@@ -29,6 +29,7 @@ class Public::OrdersController < ApplicationController
     when 3 # 新しいお届け先
       @shipping_address = current_customer.shipping_addresses.new(shipping_address_params)
       unless @shipping_address.save
+        flash[:alert] = '正しい住所を入力してください'
         render :new
         return
       else
@@ -40,7 +41,7 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
-    order = current_customer.orders.create(order_params)
+    current_customer.orders.create(order_params)
     redirect_to thankyou_orders_path
   end
 
