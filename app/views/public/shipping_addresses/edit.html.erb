@@ -1,2 +1,17 @@
-<h1>Public::ShippingAddresses#edit</h1>
-<p>Find me in app/views/public/shipping_addresses/edit.html.erb</p>
+<h3>配送先編集</h3>
+
+<%= form_with model: @address ,local: true do |f| %>
+  <div>
+    <%= f.label :post_code,"郵便番号（ハイフンなし）"%>
+    <%= f.text_field :post_code %>
+  </div>
+  <div>
+    <%= f.label :address,"住所" %>
+    <%= f.text_area :address %>
+  </div>
+  <div>
+    <%= f.label :name,"宛名"%>
+    <%= f.text_field :name %>
+  </div>
+  <%= f.submit "変更内容を保存" %>
+<%end%>
