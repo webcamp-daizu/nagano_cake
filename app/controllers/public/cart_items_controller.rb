@@ -1,10 +1,7 @@
 class Public::CartItemsController < ApplicationController
 
   def create
-
     @cart_item = current_customer.cart_items.new(cart_item_params)
-    # @cart_item = current_customer.cart_items.build(item_id: params[:item_id])
-    # @cart_item.quantity = params[:quantity].to_i
     if @cart_item.save
       redirect_to cart_items_path
     else

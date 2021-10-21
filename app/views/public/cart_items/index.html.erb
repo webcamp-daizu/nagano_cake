@@ -1,4 +1,4 @@
-<h2>ショッピングカート</h2><%= link_to "カートを空にする",cart_items_path ,method: :delete %>
+<h3>ショッピングカート</h3><%= link_to "カートを空にする",cart_items_path ,method: :delete %>
 
 <table class="table table-white">
   <thead>
@@ -17,7 +17,7 @@
           <%= attachment_image_tag cart.item,:image,:fill, 60, 50 %>
           <%= cart.item.name %>
         </td>
-        <td><%= cart.item.add_tax_included_price %></td>
+        <td><%= cart.item.add_tax_included_price %>円</td>
         <td>
           <%= "#{cart.quantity}個" %>
           <%= form_with(url: cart_item_path(cart.id), method: :patch,local: true) do |f| %>
@@ -25,7 +25,7 @@
           <%= f.submit "変更する" %>
           <%end%>
         </td>
-        <td><%= cart.sum_of_price %></td>
+        <td><%= cart.sum_of_price %>円</td>
         <td><%= link_to "削除する",cart_item_path(cart.id), method: :delete %></td>
       </tr>
     <%end%>
