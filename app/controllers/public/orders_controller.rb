@@ -1,52 +1,63 @@
 class Public::OrdersController < ApplicationController
+  before_action :authenticate_customer!
+  before_action :check_cart_is_not_empty, except: [:index, :show]
+
   def index
+    @orders = current_customer.orders
   end
 
   def show
+    @order = current_customer.orders.find(params[:id])
   end
 
   def new
+    @order = current_customer.orders.new
+    @shipping_address = ShippingAddress.new
   end
 
   def check
-    @cart_items = current_customer.cart_items
+    @order = current_customer.orders.new
+    @order.payment_method = params[:payment_method]
+    @order.total_price = current_customer.cart_items_total_price + @order.shipping_fee
 
     receiver =
-    case params[:address_number]
-    when 1
+    case @address_number = params[:address_number].to_i
+    when 1 # ご自身の住所
       current_customer
-    when 2
+    when 2 # 登録済み住所から選択
       current_customer.shipping_addresses.find(params[:shipping_address_id])
-    when 3
-      current_customer.shipping_addresses.create(shipping_address_params)
+    when 3 # 新しいお届け先
+      @shipping_address = current_customer.shipping_addresses.new(shipping_address_params)
+      unless @shipping_address.save
+        render :new
+        return
+      else
+        @shipping_address
+      end
     else
     end
-
-    @order = current_user.orders.new
     @order.set_receiver(receiver)
-    @order.total_price = @cart_items.total_priceaaaaaa + @order.shipping_fee
-    @order.payment_method = params[:payment_method]
   end
 
   def create
-    cart_items = current_customer.cart_items.map do |cart_item|
-      {
-        item_id: cart_item.item_id,
-        tax_included_price: cart_item.item.tax_included_price,
-        quantity: cart_item.quantity
-      }
-    end
-    current_customer.orders.create(order_params).order_items.create(cart_items)
+    order = current_customer.orders.create(order_params)
+    redirect_to thankyou_orders_path
   end
 
   def thankyou
   end
 
   private
+
   def shipping_address_params
-    params.require(:shipping_address).permit(:post_code, :address, :name)
+    params.permit(:post_code, :address, :name)
   end
+
   def order_params
-    params.require().permit(:name, :address, :post_code, :total_price, :payment_method)
+    params.require(:order).permit(:name, :address, :post_code, :total_price, :payment_method)
+  end
+
+  def check_cart_is_not_empty
+    redirect_to items_path unless current_customer.cart_items.present?
   end
 end

@@ -9,11 +9,19 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>2019/11/20 23:55:12</td>
-      <td>山田花子</td>
-      <td>1</td>
-      <td>入金待ち</td>
-    </tr>
+    <% @orders.each do |order| %>
+      <tr>
+        <td>
+          <%= link_to admin_order_path(order) do %>
+            <%= order.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
+          <% end %>
+        </td>
+        <td><%= order.customer.full_name.gsub(" ", "") %></td>
+        <td><%= order.order_items_total_quantity %></td>
+        <td><%= order.order_status_i18n %></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
+
+<%= paginate @orders %>

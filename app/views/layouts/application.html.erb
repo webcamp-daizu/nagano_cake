@@ -44,7 +44,7 @@
                   <%end%>
                 </li>
                 <li>
-                  <%= link_to customer_registration_path, method: :delete ,class:"nav-link text-light" do%>
+                  <%= link_to destroy_customer_session_path, method: :delete ,class:"nav-link text-light" do%>
                     <i class="fas fa-sign-out-alt"></i><span>ログアウト</span>
                   <%end%>
                 </li>
@@ -74,18 +74,18 @@
 
               <% end %>
             </ul>
-            
+
           </div>
         </div>
       </nav>
     </header>
-    
+
     <main>
       <%= yield %>
     <main>
-      
+
     <footer>
-    </footer>  
-    
+    </footer>
+
   </body>
 </html>

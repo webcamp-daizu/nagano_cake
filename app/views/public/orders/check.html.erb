@@ -9,12 +9,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>イチゴのショートケーキ</td>
-      <td>1,100円</td>
-      <td>1</td>
-      <td>1,100</td>
-    </tr>
+    <% @order.customer.cart_items.each do |cart_item| %>
+      <tr>
+        <td><%= cart_item.item.name %></td>
+        <td><%= cart_item.item.add_tax_included_price.to_s(:delimited) %></td>
+        <td><%= cart_item.quantity %></td>
+        <td><%= cart_item.subtotal.to_s(:delimited) %></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 
@@ -22,25 +24,25 @@
   <tbody>
     <tr>
       <th>送料</th>
-      <td>800</td>
+      <td><%= @order.shipping_fee.to_s(:delimited) %></td>
     </tr>
     <tr>
       <th>商品合計</th>
-      <td>1,760</td>
+      <td><%= current_customer.cart_items_total_price.to_s(:delimited) %></td>
     </tr>
     <tr>
       <th>請求金額</th>
-      <td>2,560</td>
+      <td><%= @order.total_price.to_s(:delimited) %></td>
     </tr>
   </tbody>
 </table>
 
 <h2>支払方法</h2>
-<p><%= @order.payment_method %></p>
+<p><%= @order.payment_method_i18n %></p>
 
 <h2>お届け先</h2>
-<p><%= @order.連結 %></p>
-<%= form_with url:, model: Order.new do |f| %>
+<p>〒<%= @order.post_code %> <%= @order.address %><br><%= @order.name %></p>
+<%= form_with model: Order.new do |f| %>
   <%= f.hidden_field :name, value: @order.name %>
   <%= f.hidden_field :address, value: @order.address %>
   <%= f.hidden_field :post_code, value: @order.post_code %>

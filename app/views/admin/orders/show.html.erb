@@ -3,23 +3,32 @@
   <tbody>
     <tr>
       <th>購入者</th>
-      <td>山田花子</td>
+      <td>
+        <%= link_to admin_customer_path(@order.customer) do %>
+          <%= @order.customer.full_name.gsub(" ", "") %>
+        <% end %>
+      </td>
     </tr>
     <tr>
       <th>注文日</th>
-      <td>2019/11/05</td>
+      <td><%= @order.created_at.strftime("%Y/%m/%d") %></td>
     </tr>
     <tr>
       <th>配送先</th>
-      <td>〒150-0041 東京都渋谷区神南1丁目19-11 パークウェースクエア2 4階 山田花子</td>
+      <td>〒<%= @order.post_code %> <%= @order.address %><br><%= @order.name %></td>
     </tr>
     <tr>
       <th>支払方法</th>
-      <td>銀行振込</td>
+      <td><%= @order.payment_method_i18n %></td>
     </tr>
     <tr>
-      <th>ステータス</th>
-      <td>入金確認   更新</td>
+      <th>注文ステータス</th>
+      <td>
+        <%= form_with model: [:admin, @order], local: true do |f| %>
+          <%= f.collection_select :order_status, Order.order_statuses_i18n, :first, :last, { selected: @order.order_status } %>
+          <%= f.submit "更新" %>
+        <% end %>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -30,33 +39,39 @@
       <th>単価(税込)</th>
       <th>数量</th>
       <th>小計</th>
-      <th colspan="2">製作ステータス</th>
+      <th>製作ステータス</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>いちごのショートケーキ</td>
-      <td>500</td>
-      <td>2</td>
-      <td>1,000</td>
-      <td>着手不可</td>
-      <td>更新</td>
-    </tr>
+    <% @order.order_items.each do |order_item| %>
+      <tr>
+        <td><%= order_item.item.name %></td>
+        <td><%= order_item.tax_included_price.to_s(:delimited) %></td>
+        <td><%= order_item.quantity %></td>
+        <td><%= order_item.subtotal.to_s(:delimited) %></td>
+        <td>
+          <%= form_with model:[:admin, order_item], local: true do |f| %>
+            <%= f.collection_select :make_status, OrderItem.make_statuses_i18n, :first, :last, { selected: order_item.make_status } %>
+            <%= f.submit "更新" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 <table>
   <tbody>
     <tr>
       <th>商品合計</th>
-      <td>6,490円</td>
+      <td><%= @order.order_items_total_price.to_s(:delimited) %>円</td>
     </tr>
     <tr>
       <th>送料</th>
-      <td>800円</td>
+      <td><%= @order.shipping_fee.to_s(:delimited) %>円</td>
     </tr>
     <tr>
       <th>請求金額合計</th>
-      <td>7,290円</td>
+      <td><%= @order.total_price.to_s(:delimited) %>円</td>
     </tr>
   </tbody>
 </table>

@@ -21,6 +21,49 @@
     )
   end
 
+  ShippingAddress.create!(
+    customer_id: 1,
+    name: "山田花子",
+    address: "東京都渋谷区神南1丁目19-11 パークウェースクエア2 4階",
+    post_code: "1500041",
+  )
+
+  Genre.create!(
+    name: "ケーキ"
+  )
+
+  Item.create!(
+    genre_id: 1,
+    name: "いちごのショートケーキ",
+    description: "栃木県産のとちおとめを贅沢に使用しています。",
+    image_id: "hoge",
+    is_active: true,
+    tax_encluded_price: 800
+  )
+
+  # 15.times do |n|
+  #   CartItem.create!(
+  #     customer_id: 1,
+  #     item_id: 1,
+  #     quantity: n + 1
+  #   )
+
+  #   Order.create!(
+  #     customer_id: 1,
+  #     name: "山田花子",
+  #     address: "東京都渋谷区神南1丁目19-11 パークウェースクエア2 4階",
+  #     post_code: "1500041",
+  #     total_price: "10000",
+  #     payment_method: 0
+  #   )
+  # end
+
+  # CartItem.create!(
+  #   customer_id: 1,
+  #   item_id: 1,
+  #   quantity: 2
+  # )
+
   Admin.create!(
   email: 'admin@admin',
   password: 'adminadmin'

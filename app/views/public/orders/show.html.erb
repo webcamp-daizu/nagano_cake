@@ -4,19 +4,19 @@
   <tbody>
     <tr>
       <th>注文日</th>
-      <td>2019/11/05</td>
+      <td><%= @order.created_at.strftime("%Y/%m/%d") %></td>
     </tr>
     <tr>
       <th>配送先</th>
-      <td>〒1500041<br>東京都渋谷区神南1丁目19-11 パークウェースクエア2 4階<br>山田花子</td>
+      <td>〒<%= @order.post_code %><br><%= @order.address %><br><%= @order.name %></td>
     </tr>
     <tr>
       <th>支払方法</th>
-      <td>銀行振込</td>
+      <td><%= @order.payment_method_i18n %></td>
     </tr>
     <tr>
       <th>ステータス</th>
-      <td>入金確認</td>
+      <td><%= @order.order_status_i18n %></td>
     </tr>
   </tbody>
 </table>
@@ -31,12 +31,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>いちごのショートケーキ</td>
-      <td>500</td>
-      <td>2</td>
-      <td>1000</td>
-    </tr>
+    <% @order.order_items.each do |order_item| %>
+      <tr>
+        <td><%= order_item.item.name %></td>
+        <td><%= order_item.tax_included_price.to_s(:delimited) %></td>
+        <td><%= order_item.quantity %></td>
+        <td><%= order_item.subtotal.to_s(:delimited) %></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 <h2>請求情報</h2>
@@ -44,15 +46,15 @@
   <tbody>
     <tr>
       <th>商品合計</th>
-      <td>1,500</td>
+      <td><%= @order.order_items_total_price.to_s(:delimited) %></td>
     </tr>
     <tr>
       <th>配送料</th>
-      <td>800</td>
+      <td><%= @order.shipping_fee.to_s(:delimited) %></td>
     </tr>
     <tr>
       <th>ご請求額</th>
-      <td>2,300</td>
+      <td><%= @order.total_price.to_s(:delimited) %></td>
     </tr>
   </tbody>
 </table>

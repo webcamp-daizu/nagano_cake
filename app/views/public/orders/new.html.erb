@@ -1,22 +1,22 @@
 <h1>注文情報入力</h1>
 <h2>支払方法</h2>
 
-<%= form_with url: orders_check_path,scope: :post, local: true, method: :post do |f| %>
-  <%= f.collection_radio_buttons :payment_method, Order.payment_methods_i18n, :first, :last %>
+<%= form_with url: check_orders_path, local: true, method: :post do |f| %>
+  <%= f.collection_radio_buttons :payment_method, Order.payment_methods_i18n, :first, :last, { checked: @order.payment_method ||= "credit_card" } %>
   <h2>お届け先</h2>
-  <%= f.radio_button :address_number, 1 %>
+  <%= f.radio_button :address_number, 1, checked: @address_number ||= 1 == 1  %>
   <%= f.label :address_number, "ご自身の住所", value: 1 %><br>
-    <p>〒1500041 東京都渋谷区神南1丁目19-11 パークウェースクエア2 4階<br>山田花子</p>
-  <%= f.radio_button :address_number, 2 %>
+    <p><%= @order.customer.address_in_one_line %></p>
+  <%= f.radio_button :address_number, 2, checked: @address_number == 2 %>
   <%= f.label :address_number, "登録済み住所から選択", value: 2 %><br>
-    <%= f.select :shipping_address_id, [ ["プログラマン講師",1], ["家電メーカー", 2] ], { class: "hoge", id: "fuga" } %><br>
-  <%= f.radio_button :address_number, 3 %>
+    <%= f.select :shipping_address_id, current_customer.reload.shipping_addresses.map { |a| [a.in_one_line, a.id] } %><br>
+  <%= f.radio_button :address_number, 3, checked: @address_number == 3 %>
   <%= f.label :address_number, "新しいお届け先", value: 3 %><br>
     <%= f.label :post_code, "郵便番号(ハイフンなし)" %>
-    <%= f.text_field :post_code %><br>
+    <%= f.text_field :post_code, value: @shipping_address.post_code %><br>
     <%= f.label :address, "住所" %>
-    <%= f.text_field :address %><br>
+    <%= f.text_field :address, value: @shipping_address.address %><br>
     <%= f.label :name, "宛名" %>
-    <%= f.text_field :name %><br>
+    <%= f.text_field :name, value: @shipping_address.name %><br>
   <%= f.submit %>
 <% end %>
