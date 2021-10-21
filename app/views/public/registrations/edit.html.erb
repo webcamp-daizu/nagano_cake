@@ -1,0 +1,46 @@
+<h3><%= @customer.full_name.gsub(" ", "") %>さんの会員情報編集</h3>
+
+<%= form_with model: @customer, url: customer_path(@customer), local: true do |f| %>
+  <div>
+    <spam>会員ID</spam>
+    <%= @customer.id %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :氏名 %>
+    <%= f.text_field :last_name %>
+    <%= f.text_field :first_name %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :フリガナ %>
+    <%= f.text_field :last_name_kana %>
+    <%= f.text_field :first_name_kana %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :郵便番号 %>
+    <%= f.text_field :post_code %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :住所 %>
+    <%= f.text_field :address %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :電話番号 %>
+    <%= f.text_field :phone_number %>
+  </div>
+
+  <div class="field">
+    <%= f.label :メールアドレス %>
+    <%= f.email_field :email %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit "編集内容を保存" %>
+  </div>
+<% end %>
+
+<%= link_to "退会する", customer_withdraw_confirm_path %>
