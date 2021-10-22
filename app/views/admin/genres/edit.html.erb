@@ -1,12 +1,11 @@
-<h3>ジャンル編集</h3>
+<h3 class="offset-1 col-3 mt-5 text-center bg-light">ジャンル編集</h3>
 
-<%= form_with model: @genre, url: admin_genre_path, local: true do |f| %>
-  <div class="form-group">
-    <%= f.label :ジャンル名 %>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="form-group">
-    <%= f.submit "変更を保存" %>
-  </div>
-<% end %>
+<div class="col-8 mt-5">
+  <%= form_with model: @genre, url: admin_genre_path, local: true do |f| %>
+    <div class="form-inline">
+      <div><%= f.label :ジャンル名 %></div>
+      <div class="ml-5"><%= f.text_field :name %></div>
+      <div class="ml-5"><%= f.submit "変更を保存", class: "btn btn-success", style: "width:150px" %></div>
+    </div>
+  <% end %>
+</div>
