@@ -1,38 +1,40 @@
-<h3 class="offset-1 col-2 mt-5 bg-light">商品編集</h3>
+<h3 class="offset-1 mt-4">　商品編集　</h3>
 
 <div class="col-8 offset-2 mt-5">
   <%= form_with model: @item, url: admin_item_path, local: true do |f| %>
-    <div class="form-inline row">
-      <%= f.label :商品画像, class: "col-4" %>
-      <%= f.attachment_field :image, class: "col-8" %>
+    <div class="form-group row">
+      <div class="col-4"><%= f.label :商品画像 %></div>
+      <div class="col-8"><%= f.attachment_field :image %></div>
     </div>
 
-    <div class="form-inline row mt-3">
-      <%= f.label :商品名, class: "col-4" %>
-      <%= f.text_field :name, class: "form-control col-8" %>
+    <div class="form-group row">
+      <div class="col-4"><%= f.label :商品名 %></div>
+      <div class="col-8"><%= f.text_field :name, class: "form-control" %></div>
     </div>
 
-    <div class="form-inline row mt-3">
-      <%= f.label :商品説明, class: "col-4" %>
-      <%= f.text_area :description, class: "form-control col-8", rows: "6" %>
+    <div class="form-group row">
+      <div class="col-4"><%= f.label :商品説明 %></div>
+      <div class="col-8"><%= f.text_area :description, class: "form-control", rows: "6" %></div>
     </div>
 
-    <div class="form-inline row mt-3">
-      <%= f.label :ジャンル, class: "col-4" %>
-      <%= f.collection_select :genre_id, @genres, :id, :name, include_blank: "--選択してください--", class: "col-8" %>
+    <div class="form-group row">
+      <div class="col-4"><%= f.label :ジャンル %></div>
+      <div class="col-8"><%= f.collection_select :genre_id, Genre.all, :id, :name, include_blank: "--選択してください--" %></div>
     </div>
 
-    <div class="form-inline row mt-3">
-      <%= f.label :税抜価格, class: "col-4" %>
-      <%= f.text_field :tax_encluded_price, class: "form-control col-7" %>円
+    <div class="form-group row">
+      <div class="col-4"><%= f.label :税抜価格 %></div>
+      <div class="col-8 d-flex flex-row"><%= f.text_field :tax_encluded_price, class: "form-control" %>円</div>
     </div>
 
-    <div class="form-inline row mt-3">
-      <%= f.label :販売ステータス, class: "col-4" %>
-      <%= f.radio_button :is_active, :true %>
-      <%= f.label :is_active, "販売中" %>
-      <%= f.radio_button :is_active, :false, class: "ml-3" %>
-      <%= f.label :is_active, "販売停止中" %>
+    <div class="form-group row">
+      <div class="col-4"><%= f.label :販売ステータス %></div>
+      <div class="col-8">
+        <%= f.radio_button :is_active, :true %>
+        <%= f.label :is_active, "販売中" %>
+        <%= f.radio_button :is_active, :false, class: "ml-3" %>
+        <%= f.label :is_active, "販売停止中" %>
+      </div>
     </div>
 
     <div class="text-center mt-4">

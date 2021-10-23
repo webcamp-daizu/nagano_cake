@@ -1,11 +1,11 @@
-<h3 class="offset-1 col-4 mt-4 text-center bg-light">ジャンル一覧・追加</h3>
+<h3 class="offset-1 mt-4">　ジャンル一覧・追加　</h3>
 
 <div class="col-8 mt-5">
   <%= form_with model: @genre, url: admin_genres_path, local: true do |f| %>
-    <div class="form-inline">
-      <div><%= f.label :ジャンル名 %></div>
-      <div class="ml-5"><%= f.text_field :name, placeholder: "ジャンル名" %></div>
-      <div class="ml-5"><%= f.submit "新規登録", class: "btn btn-success", style: "width:150px" %></div>
+    <div class="form-group row">
+      <div class="col-2"><%= f.label :ジャンル名 %></div>
+      <div class="col-4"><%= f.text_field :name, placeholder: "ジャンル名" %></div>
+      <div class="col-3"><%= f.submit "新規登録", class: "btn btn-success", style: "width:150px" %></div>
     </div>
   <% end %>
 </div>

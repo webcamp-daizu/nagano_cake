@@ -1,42 +1,44 @@
-<h3 class="offset-1 col-2 mt-5 bg-light">商品詳細</h3>
+<h3 class="offset-1 mt-4">　商品詳細　</h3>
 
-<div class="row mt-5 offset-1">
-  <div><%= attachment_image_tag @item, :image, :fill, 300, 250 %></div>
+<div class="row offset-1 mt-5">
+  <div class="col-5"><%= attachment_image_tag @item, :image, :fill, 300, 250 %></div>
 
-  <div class="ml-5">
+  <div class="col-7">
 
     <div class="row">
-    <div class="col-5">商品名</div>
-    <div class="col-7"><%= @item.name %></div>
+      <div class="col-5">商品名</div>
+      <div class="col-7"><%= @item.name %></div>
     </div>
 
     <div class="row mt-3">
-    <div class="col-5">商品説明</div>
-    <div class="col-7"><%= @item.description %></div>
+      <div class="col-5">商品説明</div>
+      <div class="col-7"><%= @item.description %></div>
     </div>
 
     <div class="row mt-3">
-    <div class="col-5">ジャンル</div>
-    <div class="col-7"><%= @item.genre.name %></div>
+      <div class="col-5">ジャンル</div>
+      <div class="col-7"><%= @item.genre.name %></div>
     </div>
 
     <div class="row mt-3">
-    <div class="col-5">税込価格<br>(税抜価格)</div>
-    <div class="col-7"><%= @item.add_tax_included_price.to_s(:delimited) %>（<%= @item.tax_encluded_price.to_s(:delimited)%>）円</div>
+      <div class="col-5">税込価格<br>(税抜価格)</div>
+      <div class="col-7"><%= @item.add_tax_included_price.to_s(:delimited) %>（<%= @item.tax_encluded_price.to_s(:delimited)%>）円</div>
     </div>
 
     <div class="row mt-3">
-    <div class="col-5">販売ステータス</div>
-    <div class="col-7">
-      <% if @item.is_active? %>
-        <div class="text-success"><strong>販売中</strong></div>
-      <% else %>
-        <div class="text-secondary"><strong>販売停止中</strong></div>
-      <% end %>
-    </div>
+      <div class="col-5">販売ステータス</div>
+      <div class="col-7">
+        <% if @item.is_active? %>
+          <div class="text-success"><strong>販売中</strong></div>
+        <% else %>
+          <div class="text-secondary"><strong>販売停止中</strong></div>
+        <% end %>
+      </div>
     </div>
 
-    <div class="text-center mt-4"><%= link_to "編集する", edit_admin_item_path(@item), class: "btn btn-success", style: "width:150px" %></div>
+    <div class="text-center mt-4">
+      <%= link_to "編集する", edit_admin_item_path(@item), class: "btn btn-success", style: "width:150px" %>
+    </div>
 
   </div>
 </div>
