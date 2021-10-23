@@ -1,18 +1,28 @@
-<%= render "public/searches/genre_sidebar", genres: @genres %>
+<div class="row">
 
-<div><%= attachment_image_tag @item, :image, :fill, 300, 250 %></div>
-<div><%= @item.name %></div>
-<div><%= @item.description%></div>
-<div>¥<%= @item.add_tax_included_price.to_s(:delimited) %>（税込）</div>
+  <div class="col-sm-10 col-md-3 ">
+    <%= render "public/searches/genre_sidebar", genres: @genres %>
+  </div>
 
-<% if customer_signed_in? %>
-  <% if @item.is_active? %>
-    <%= form_with model: @cart_item, url: cart_items_path, method: :post, local: true do |f| %>
-      <%= f.select :quantity, options_for_select((1..10).to_a), include_blank: "個数選択" %>
-      <%= f.hidden_field :item_id, :value => @item.id %>
-      <%= f.submit "カートに入れる" %>
+  <div class="col-sm-10 col-md-4 ml-3">
+    <%= attachment_image_tag @item, :image, :fill, 300, 250 %>
+  </div>
+  
+  <div class="col-sm-10 col-md-5 ml-3">
+    <div class="text-border"><%= @item.name %></div>
+    <div class="mb-3"><%= @item.description%></div>
+    <div class="text-border">¥<%= @item.add_tax_included_price.to_s(:delimited) %>（税込）</div>
+    
+    <% if customer_signed_in? %>
+      <% if @item.is_active? %>
+        <%= form_with model: @cart_item, url: cart_items_path, method: :post, local: true do |f| %>
+          <%= f.select :quantity, options_for_select((1..10).to_a), include_blank: "個数選択" %>
+          <%= f.hidden_field :item_id, :value => @item.id %>
+          <%= f.submit "カートに入れる" ,class:"btn btn-success"%>
+        <% end %>
+      <% else %>
+        <div>売切れ</div>
+      <% end %>
     <% end %>
-  <% else %>
-    <div>売切れ</div>
-  <% end %>
-<% end %>
+  </div>
+    
