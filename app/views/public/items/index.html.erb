@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="row">
 
   <div class="col-sm-10 col-md-3 ">
@@ -24,3 +25,11 @@
       <%= paginate @items %>
     </div>
   </div>
+=======
+<%= render "public/searches/genre_sidebar", genres: @genres %>
+
+<h3>商品一覧</h3>
+<div>（全<%= @items.total_count %>件）</div>
+
+<%= render "public/items/item_index", items: @items %>
+>>>>>>> develop

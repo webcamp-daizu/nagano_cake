@@ -29,9 +29,12 @@ Rails.application.routes.draw do
     resources :items, only:[:index, :show]
     resources :cart_items, except:[:show, :new, :edit]
     delete "/cart_items", to: "cart_items#destroy_all"
-    resources :orders, except:[:edit, :update, :destroy]
-    get "/orders/thankyou", to: "orders#thankyou"
-    get "/orders/check", to: "orders#check"
+    resources :orders, except:[:edit, :update, :destroy] do
+      collection do
+        get "thankyou"
+        post "check"
+      end
+    end
     resources :shipping_addresses, except:[:new, :show]
     # ジャンル検索用ルーティング
     get '/genre_search', to: "searches#genre_search"

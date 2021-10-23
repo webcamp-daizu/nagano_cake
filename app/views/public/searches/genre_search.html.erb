@@ -5,12 +5,12 @@
   </div>
 
   <div class="col-sm-10 col-md-8 ml-3">
-    
+
       <h3><%= @value %>一覧</h3>
-      
-    <div class="row">
+
+    <div class="row pt-5">
       <% if @datas.empty? %>
-        <div>該当商品はありません</div>
+        <div class="text-center">該当商品はありません</div>
       <% else %>
         <div>（全<%= @datas.count %>件）</div>
         <% @datas.each do |data| %>
@@ -24,7 +24,7 @@
         <% end %>
       <% end %>
     </div>
-    
+
   </div>
-<>
+</div>
 
