@@ -8,17 +8,17 @@
 
 
   15.times do |n|
-    Customer.create!(
-      email: "test#{n + 1}@test.com",
-      password: "111111",
-      last_name: "test",
-      first_name: "#{n + 1}",
-      last_name_kana: "テスト",
-      first_name_kana: "テスト",
-      address: "a県",
-      post_code: "0000000",
-      phone_number: "00000000000",
-    )
+      Customer.create!(
+        email: "test#{n + 1}@test.com",
+        password: "111111",
+        last_name: "test",
+        first_name: "#{n + 1}",
+        last_name_kana: "テスト",
+        first_name_kana: "テスト",
+        address: "a県",
+        post_code: "0000000",
+        phone_number: "00000000000",
+      )
   end
 
   ShippingAddress.create!(
