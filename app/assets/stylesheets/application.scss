@@ -16,8 +16,29 @@
 @import 'bootstrap';
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Zilla+Slab&display=swap');
+
+*{
+  font-family: 'Itim', cursive, monospace ;
+}
 
 h3{
   background-color: #EEEEEE;
   display: inline-block;
+}
+
+header{
+  background-image: image-url('black.jpeg');
+}
+
+header nav{
+  background-image: image-url('black.jpeg');
+}
+
+.nav-link {
+  background-color: #EEEEEE;
+}
+
+footer {
+  background-image: image-url('black.jpeg');
 }
