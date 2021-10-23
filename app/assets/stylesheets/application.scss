@@ -27,9 +27,22 @@ h7{
   display: inline-block;
 }
 
-.about{
-  background-color: #EEEEEE;
-  width: 300px;
-  height: 200px;
-  background-image: url(assets/images/about.jpg)
+// トップページの画像
+.top{
+  position: relative;
+  width: 600px;
+}
+
+.topimage{
+  filter: blur(1px);
+  width: 100%;
+  box-shadow: inset 0px 0px 15px 15px #fff;
+  border-radius: 10px;
+}
+
+.top p{
+  position: absolute;
+  color: white;
+  bottom: 0;
+  right: 5px;
 }

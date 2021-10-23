@@ -5,18 +5,19 @@
   </div>
 
   <div class="col-md-8 offset-1">
-    <div class="row">
-      
-      <p>ようこそ、ながのCAKEへ！<br/>
+    
+    <div class="top row mr-auto">
+      <%= image_tag "top.jpg" , class:"topimage" %>
+      <p class="text-right">ようこそ、ながのCAKEへ！<br/>
       このサイトは、ケーキ販売のECサイトになります。<br/>
       会員でない方も商品の閲覧はできますが、<br/>
       購入には会員登録が必要になります。</p>
     </div>
-
-    <h2 class="pt-3">新着商品</h2>
+    
+    <h3 class="mt-5">新着商品</h3>
     <div class="row pt-3 card-list-container">
       <% @items.each do |item| %>
-          <div class="card w-30 mr-2 shadow-lg">
+          <div class="card bg-light w-30 mr-2 shadow-lg">
             <div>
               <%=link_to item_path(item) do %>
                 <%= attachment_image_tag item, :image, :fill, 160, 120, format: 'jpeg' ,class:"card-img-top py-2 px-2";%>
