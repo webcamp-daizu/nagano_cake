@@ -29,22 +29,22 @@
               <% if admin_signed_in? %>
                 <li>
                   <%= link_to admin_items_path, class:"nav-link text-light" do%>
-                    <i class="fas fa-users"></i><span>商品一覧</span>
+                    <i class="fas fa-cookie-bite"></i><span>商品一覧</span>
                   <%end%>
                 </li>
                 <li>
                   <%= link_to admin_customers_path ,class:"nav-link " do %>
-                    <i class="fas fa-home" ></i><span>会員一覧</span>
+                    <i class="fas fa-address-book"></i></i><span>会員一覧</span>
                   <%end%>
                 </li>
                 <li>
                   <%= link_to admin_root_path,class:"nav-link text-light" do%>
-                    <i class="fas fa-book-open"></i><span>注文履歴一覧</span>
+                    <i class="fas fa-shopping-cart"></i><span>注文履歴一覧</span>
                   <%end%>
                 </li>
                 <li>
                   <%= link_to admin_genres_path ,class:"nav-link " do %>
-                    <i class="fas fa-home" ></i><span>ジャンル一覧</span>
+                    <i class="fas fa-thumbtack"></i><span>ジャンル一覧</span>
                   <%end%>
                 </li>
                 <li>
@@ -62,7 +62,7 @@
                 </li>
                 <li>
                   <%= link_to items_path ,class:"nav-link text-light" do%>
-                    <i class="fas fa-link"></i><span>商品一覧</span>
+                    <i class="fas fa-cookie-bite"></i><span>商品一覧</span>
                   <%end%>
                 </li>
                 <li>
@@ -90,7 +90,11 @@
     </header>
 
     <main>
-      <%= yield %>
+      <div class="container">
+        <p class="text text-success"><%= notice %></p>
+        <p class="text text-danger"><%= alert %></p>
+        <%= yield %>
+      </div>
     </main>
 
     <footer>

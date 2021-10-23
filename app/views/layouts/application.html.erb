@@ -17,6 +17,9 @@
 
             <%=link_to "NaganoCake",root_path ,class:"navbar-brand text-light"%>
             <%=link_to "管理者用ページ",new_admin_session_path %>
+            <% if customer_signed_in? %>
+              <p class="pt-3 text-light">ようこそ、<%= current_customer.full_name %>さん！</p>
+            <%end%>
 
           <!--naviボタン-->
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,12 +38,12 @@
                 </li>
                 <li>
                   <%= link_to items_path, class:"nav-link text-light" do%>
-                    <i class="fas fa-users"></i><span>商品一覧</span>
+                    <i class="fas fa-cookie-bite"></i><span>商品一覧</span>
                   <%end%>
                 </li>
                 <li>
                   <%= link_to cart_items_path,class:"nav-link text-light" do%>
-                    <i class="fas fa-book-open"></i><span>カート</span>
+                    <i class="fas fa-shopping-cart"></i><span>カート</span>
                   <%end%>
                 </li>
                 <li>
@@ -58,7 +61,7 @@
                 </li>
                 <li>
                   <%= link_to items_path ,class:"nav-link text-light" do%>
-                    <i class="fas fa-link"></i><span>商品一覧</span>
+                    <i class="fas fa-cookie-bite"></i><span>商品一覧</span>
                   <%end%>
                 </li>
                 <li>
@@ -77,14 +80,16 @@
 
             <%= render "public/searches/form" %>
 
-          </div>
-        </div>
       </nav>
     </header>
 
     <main>
-      <%= yield %>
-    <main>
+      <div class="container">
+        <p class="text-success"><%= notice %></p>
+        <p class="text-danger"><%= alert %></p>
+        <%= yield %>
+      </div>
+    </main>
 
     <footer>
     </footer>
