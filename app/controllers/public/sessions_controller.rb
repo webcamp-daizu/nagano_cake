@@ -27,7 +27,10 @@ class Public::SessionsController < Devise::SessionsController
   # end
   def reject_login
     customer = Customer.find_by(email: params[:customer][:email])
-    if customer.is_deleted == true
+
+    if customer.nil?
+      redirect_to new_customer_session_path
+    elsif customer.is_deleted == true
       flash[:notice] = "退会済みのアカウントです"
       redirect_to new_customer_session_path
     end
