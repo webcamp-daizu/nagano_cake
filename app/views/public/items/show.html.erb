@@ -4,11 +4,11 @@
     <%= render "public/searches/genre_sidebar", genres: @genres %>
   </div>
 
-  <div class="col-md-3 mr-3">
+  <div class="col-md-4 mr-1">
     <%= attachment_image_tag @item, :image, :fill, 300, 250 %>
   </div>
   
-  <div class="col-md-5 ">
+  <div class="col-md-4 ">
     <h4 class="font-weight-bold"><%= @item.name %></h4>
     <div class="my-3"><%= @item.description%></div>
     <div class="font-weight-bold">¥<%= @item.add_tax_included_price.to_s(:delimited) %>（税込）</div>
