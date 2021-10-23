@@ -18,7 +18,7 @@
             <%=link_to "NaganoCake",root_path ,class:"navbar-brand text-light"%>
             <%=link_to "管理者用ページ",new_admin_session_path %>
             <% if customer_signed_in? %>
-              <p class="pt-3">ようこそ、<%= current_customer.full_name %>さん！</p>
+              <p class="pt-3 text-light">ようこそ、<%= current_customer.full_name %>さん！</p>
             <%end%>
 
           <!--naviボタン-->
@@ -86,7 +86,7 @@
     <main>
       <div class="container">
         <p class="text-success"><%= notice %></p>
-        <p class="text"><%= alert %></p>
+        <p class="text-danger"><%= alert %></p>
         <%= yield %>
       </div>
     </main>
