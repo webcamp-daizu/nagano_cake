@@ -1,10 +1,10 @@
 <div class="row">
 
-  <div class="col-sm-10 col-md-3 ">
+  <div class=" col-md-3 ">
     <%= render "public/searches/genre_sidebar", genres: @genres %>
   </div>
 
-  <div class="col-sm-10 col-md-8 ml-3">
+  <div class="col-md-8 offset-1">
     <div class="row">
       <p>ようこそ、ながのCAKEへ！<br/>
       このサイトは、ケーキ販売のECサイトになります。<br/>
@@ -12,16 +12,14 @@
       購入には会員登録が必要になります。</p>
     </div>
 
+    <h2 class="pt-3">新着商品</h2>
     <div class="row pt-3">
-      <h2>新着商品</h2>
       <% @items.each do |item| %>
-        <div>
-          <div class="col-md-4">
+          <div class="col-3">
             <%= attachment_image_tag item, :image, :fill, 200, 200, format: 'jpeg' %>
             <%= item.name %>
             <%= item.tax_encluded_price %>
           </div>
-        </div>
       <%end%>
     </div>
 

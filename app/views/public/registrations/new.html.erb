@@ -51,12 +51,12 @@
   </div>
 
   <div class="row form-group">
-    <div class="col-md-3"><%= f.label :password_confirmation, "パスワード(確認用)"  %></div>
+    <div class="col-md-3"><%= f.label :password_confirmation, "パスワード(確認用)" %></div>
     <div class="col-md-8"><%= f.password_field :password_confirmation, autocomplete: "new-password" ,class:"form-control"%></div>
   </div>
 
 
-  <div class="col offset-3">
+  <div class="form-group offset-3">
     <%= f.submit "新規登録" ,class:"btn btn-success",style:"width:150px"%>
   </div>
 <% end %>
