@@ -15,7 +15,7 @@ describe "登録情報変更〜退会", type: :system do
     end
     describe "ヘッダーの画面遷移機能" do
       it "7.トップ画面が表示される,15.トップ画面が表示される" do
-        click_link "NaganoCake"
+        find('a[href = "/"]', text: "").click
         expect(current_path).to eq "/"
       end
       it "16.マイページに遷移する" do
@@ -94,15 +94,31 @@ describe "登録情報変更〜退会", type: :system do
             it "13.「５」で登録した住所が選択できるようになっている" do
               expect(page).to have_select("shipping_address_id", options: [ShippingAddress.last.in_one_line] )
             end
-            context "注文を確定した場合" do
-              before "任意の支払方法、登録した住所を選択し、購入ボタンを押下する" do
+            context "任意の支払方法、登録した住所を選択し、購入ボタンを押下した場合" do
+              before do
+                choose "クレジットカード"
+                choose "登録済み住所から選択"
                 select ShippingAddress.last.in_one_line, from: "shipping_address_id"
-                click_button "保存する"
-                click_button "注文を確定する"
+                click_button "確認画面へ進む"
+                  click_button "注文を確定する"
               end
-              it "14.サンクスページに遷移する" do
-                expect(current_path).to eq "/orders/thankyou"
+              it "注文確認画面が表示される" do
+                expect(current_path).to eq "/orders/check"
               end
+              it "選択した情報が表示される" do
+                expect(page).to have_content "クレジットカード"
+                expect(page).to have_content "9999999"
+                expect(page).to have_content "z県"
+                expect(page).to have_content "山田花子"
+              end
+              # context "注文を確定した場合" do
+              #   before do
+              #     click_button "注文を確定する"
+              #   end
+              #   it "14.サンクスページに遷移する" do
+              #     expect(current_path).to eq "/orders/thankyou"
+              #   end
+              # end
             end
           end
         end
@@ -161,8 +177,8 @@ describe "登録情報変更〜退会", type: :system do
             it "23.ヘッダが未ログイン状態になっている" do
               expect(page).to have_content "About"
               expect(page).to have_content "商品一覧"
-              expect(page).to have_content "sign up"
-              expect(page).to have_content "log in"
+              expect(page).to have_content "Sign up"
+              expect(page).to have_content "Log in"
             end
             it "24.ログイン画面に遷移する,25.ログインが不可" do
               visit new_customer_session_path
