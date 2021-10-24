@@ -15,7 +15,7 @@
       <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
 
-            <div><%= link_to image_tag("logo6.jpg",size: "220x80"), root_path, class: "navbar-brand text-light" %></div>
+            <div><%= link_to image_tag("logo7.png",size: "220x85"), root_path, class: "navbar-brand text-light" %></div>
             <% if customer_signed_in? %>
               <p class="pt-3 text-light">ようこそ、<%= current_customer.full_name %>さん！</p>
             <%end%>
@@ -91,7 +91,7 @@
     </header>
 
     <main style="padding-top:110px; margin-bottom:50px;">
-      <div class="container">
+      <div class="container p-3">
         <p class="text-success"><%= notice %></p>
         <p class="text-danger"><%= alert %></p>
         <%= yield %>

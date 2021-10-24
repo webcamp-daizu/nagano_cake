@@ -1,11 +1,11 @@
-<h3 class="offset-1 mt-4">　注文履歴詳細　</h3>
+<h3 class="offset-1">　注文履歴詳細　</h3>
 
 <div class="row">
   <div class="col-10">
-    <table class="table table-white">
+    <table class="table table-light">
       <tbody>
         <tr>
-          <th>購入者</th>
+          <th class="table-active">購入者</th>
           <td>
             <%= link_to admin_customer_path(@order.customer), class: "text-dark", style: "text-decoration: underline" do %>
               <%= @order.customer.full_name.gsub(" ", "") %>
@@ -13,23 +13,25 @@
           </td>
         </tr>
         <tr>
-          <th>注文日</th>
+          <th class="table-active">注文日</th>
           <td><%= @order.created_at.strftime("%Y/%m/%d") %></td>
         </tr>
         <tr>
-          <th>配送先</th>
+          <th class="table-active">配送先</th>
           <td>〒<%= @order.post_code %> <%= @order.address %><br><%= @order.name %></td>
         </tr>
         <tr>
-          <th>支払方法</th>
+          <th class="table-active">支払方法</th>
           <td><%= @order.payment_method_i18n %></td>
         </tr>
         <tr>
-          <th>注文ステータス</th>
+          <th class="table-active">注文ステータス</th>
           <td>
             <%= form_with model: [:admin, @order], local: true do |f| %>
-              <%= f.collection_select :order_status, Order.order_statuses_i18n, :first, :last, { selected: @order.order_status } %>
-              <%= f.submit "更新", class: "btn btn-success ml-5" %>
+              <div class="form-inline">
+                <%= f.collection_select(:order_status, Order.order_statuses_i18n, :first, :last, { selected: @order.order_status }, {class: "form-control"}) %>
+                <%= f.submit "更新", class: "btn btn-success ml-5" %>
+              </div>
             <% end %>
           </td>
         </tr>
@@ -40,7 +42,7 @@
 
 <div class="row">
   <div class="col-9">
-    <table class="table">
+    <table class="table table-light">
       <thead class="table-active">
         <tr>
           <th>商品名</th>
@@ -59,7 +61,7 @@
             <td class="text-center"><%= order_item.quantity %></td>
             <td class="text-center"><%= order_item.sum_of_price.to_s(:delimited) %></td>
             <%= form_with model:[:admin, order_item], local: true do |f| %>
-              <td class="text-center"><%= f.collection_select :make_status, OrderItem.make_statuses_i18n, :first, :last, { selected: order_item.make_status } %></td>
+              <td class="text-center"><%= f.collection_select(:make_status, OrderItem.make_statuses_i18n, :first, :last, { selected: order_item.make_status }, {class: "form-control"}) %></td>
               <td class="text-center"><%= f.submit "更新", class: "btn btn-success" %></td>
             <% end %>
           </tr>
@@ -69,18 +71,18 @@
   </div>
 
   <div class="col-3 d-flex align-items-end">
-    <table class="table table-white">
+    <table class="table table-light">
       <tbody>
         <tr>
-          <th>商品合計</th>
+          <th class="table-active">商品合計</th>
           <td><%= @order.order_items_total_price.to_s(:delimited) %>円</td>
         </tr>
         <tr>
-          <th>送料</th>
+          <th class="table-active">送料</th>
           <td><%= @order.shipping_fee.to_s(:delimited) %>円</td>
         </tr>
         <tr>
-          <th>請求金額合計</th>
+          <th class="table-active">請求金額合計</th>
           <td><%= @order.total_price.to_s(:delimited) %>円</td>
         </tr>
       </tbody>

@@ -1,7 +1,7 @@
-<h3 class="offset-1 mt-4">　会員一覧　</h3>
+<h3 class="offset-1">　会員一覧　</h3>
 
 <div class="row offset-2 col-8 mt-3">
-  <table class="table">
+  <table class="table table-light">
     <thead class="table-active">
       <tr>
       <th>会員ID</th>
@@ -27,9 +27,5 @@
     </tbody>
     <% end %>
   </table>
-
-  <div class="offset-5">
-    <%= paginate(@customers) %>
-  </div>
-
 </div>
+<%= paginate(@customers) %>

@@ -1,7 +1,7 @@
-<h3 class="offset-1 mt-4">　注文履歴一覧　</h1>
+<h3 class="offset-1">　注文履歴一覧　</h1>
 
 <div class="row offset-1 col-10 mt-3">
-  <table class="table">
+  <table class="table table-light">
     <thead class="table-active">
       <tr>
         <th>購入日時</th>
@@ -25,9 +25,5 @@
       <% end %>
     </tbody>
   </table>
-
-  <div class="offset-5">
-    <%= paginate @orders %>
-  </div>
-
 </div>
+<%= paginate @orders %>
