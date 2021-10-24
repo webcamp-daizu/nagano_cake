@@ -5,42 +5,41 @@
     <spam>会員ID</spam>
     <%= @customer.id %>
   </div>
-  
-  <div class="field">
-    <%= f.label :氏名 %>
-    <%= f.text_field :last_name %>
-    <%= f.text_field :first_name %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :フリガナ %>
-    <%= f.text_field :last_name_kana %>
-    <%= f.text_field :first_name_kana %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :郵便番号 %>
-    <%= f.text_field :post_code %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :住所 %>
-    <%= f.text_field :address %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :電話番号 %>
-    <%= f.text_field :phone_number %>
+
+  <div class="row form-group pt-3">
+    <div class="col-3"><%= f.label :氏名 %></div>
+    <div class="col-md-3"><%= f.text_field :last_name ,class:"form-control" %></div>
+    <div class="col-md-3"><%= f.text_field :first_name ,class:"form-control" %></div>
   </div>
 
-  <div class="field">
-    <%= f.label :メールアドレス %>
-    <%= f.email_field :email %>
+  <div class="row form-group">
+    <div class="col-3"><%= f.label :フリガナ %></div>
+    <div class="col-md-3"><%= f.text_field :last_name_kana ,class:"form-control" %></div>
+    <div class="col-md-3"><%= f.text_field :first_name_kana ,class:"form-control" %></div>
   </div>
-  
-  <div class="actions">
-    <%= f.submit "編集内容を保存" %>
+
+  <div class="row form-group">
+    <div class="col-3"><%= f.label :郵便番号 %></div>
+    <div class="col-md-3"><%= f.text_field :post_code ,class:"form-control" %></div>
   </div>
+
+  <div class="row form-group">
+    <div class="col-3"><%= f.label :住所 %></div>
+    <div class="col-md-8"><%= f.text_field :address ,class:"form-control" %></div>
+  </div>
+
+  <div class="row form-group">
+    <div class="col-3"><%= f.label :電話番号 %></div>
+    <div class="col-md-3"><%= f.text_field :phone_number ,class:"form-control" %></div>
+  </div>
+
+  <div class="row form-group">
+    <div class="col-3"><%= f.label :メールアドレス %></div>
+    <div class="col-md-3"><%= f.email_field :email ,class:"form-control" %></div>
+  </div>
+
+  <div class="row form-group offset-3 pt-3">
+    <%= f.submit "編集内容を保存" ,class:"btn btn-success" ,style:"width:200px"%>
 <% end %>
 
-<%= link_to "退会する", customer_withdraw_confirm_path %>
+<%= link_to "退会する", customer_withdraw_confirm_path ,class:"btn btn-danger ml-5"%></div>

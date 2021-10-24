@@ -1,6 +1,6 @@
-<h3>注文履歴一覧</h3>
-<table class="table table-white">
-  <thead>
+<h3 class="ml-5">注文履歴一覧</h3>
+<table class="table table-bordered mt-3">
+  <thead class="table-active">
     <tr>
       <th>注文日</th>
       <th>配送先</th>
@@ -22,7 +22,7 @@
         </td>
         <td><%= order.total_price.to_s(:delimited) %>円</td>
         <td><%= order.order_status_i18n %></td>
-        <td><%= link_to "表示する", order_path(order) %></td>
+        <td class="text-center"><%= link_to "表示する", order_path(order) ,class:"btn btn-primary"%></td>
       </tr>
     <% end %>
   </tbody>

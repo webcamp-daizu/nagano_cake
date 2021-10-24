@@ -28,6 +28,7 @@ h3{
   display: inline-block;
 }
 
+
 header{
   background-image: image-url('black.jpeg');
 }
@@ -50,5 +51,30 @@ footer {
 
 .pagination>li>a {
   color: #808080;
+}
+
+h7{
+  background-color: #EEEEEE;
+  display: inline-block;
+}
+
+// トップページの画像
+.top{
+  position: relative;
+  width: 600px;
+}
+
+.topimage{
+  filter: blur(1px);
+  width: 100%;
+  box-shadow: inset 0px 0px 15px 15px #fff;
+  border-radius: 10px;
+}
+
+.top p{
+  position: absolute;
+  color: white;
+  bottom: 0;
+  right: 5px;
 }
 
