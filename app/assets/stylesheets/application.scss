@@ -22,6 +22,10 @@
   font-family: 'Zen Maru Gothic', sans-serif;
 }
 
+body{
+  background-image: image-url('paper.jpg');
+}
+
 
 h3{
   background-color: #DDDDDD;
@@ -78,3 +82,7 @@ h7{
   right: 5px;
 }
 
+.card{
+  width:180px;
+  background-image: image-url('card.jpg');
+}
