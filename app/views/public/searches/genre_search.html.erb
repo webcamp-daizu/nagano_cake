@@ -15,7 +15,7 @@
         
         <div class="card-list-container row pt-5">
           <% @datas.each do |data| %>
-            <div class="card w-30 mx-auto shadow-lg">
+            <div class="card mb-4 mx-auto shadow-lg">
               <%= link_to item_path(data.id) do %>
                 <%= attachment_image_tag data, :image, :fill, 200, 150 ,class:"card-img-top px-2 py-2";%>
               <% end %>

@@ -9,7 +9,7 @@
   <p class="text-center pt-5">カートは空です<p>
 <%else%>
   <div class="row pt-5">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-light">
       <thead class="table-active">
         <tr>
           <th>商品名</th>
@@ -46,7 +46,7 @@
 <div class="row pt-4">
 <div class="col-5"><%= link_to "買い物を続ける",items_path ,class:"btn btn-primary btn-md"%></div>
 
-<table class="table table-bordered col-4 ml-auto">
+<table class="table table-bordered table-light col-4 ml-auto">
   <tr>
     <th class="table-active">合計金額</th>
     <th><%= "#{@total.to_s(:delimited)}" %></th>
