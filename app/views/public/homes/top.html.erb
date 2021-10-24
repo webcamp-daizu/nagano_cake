@@ -15,22 +15,8 @@
     </div>
     
     <h3 class="mt-5">新着商品</h3>
-    <div class="row pt-3 card-list-container">
-      <% @items.each do |item| %>
-          <div class="card mb-4 mx-auto shadow-lg">
-            <div>
-              <%=link_to item_path(item) do %>
-                <%= attachment_image_tag item, :image, :fill, 200, 150, format: 'jpeg' ,class:"card-img-top py-2 px-2";%>
-              <%end%>
-            </div>
-            <div class="card-body">
-              <div class="card-title"><%= item.name %></div>
-              <div>¥<%= item.tax_encluded_price.to_s(:delimited) %></div>
-            </div>
-          </div>
-      <%end%>
-    </div>
-
+    <%= render "public/items/item_index", items: @items %>
+    
     <div class="text-right mt-5">
       <%=link_to "全ての商品を見る>" ,items_path %>
     </div>

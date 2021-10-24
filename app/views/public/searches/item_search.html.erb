@@ -1,6 +1,13 @@
-<%= render "public/searches/genre_sidebar", genres: @genres %>
+<div class="row">
 
-<h3>"<%= @keyword %>"の検索結果</h3>
-<div>（全<%= @items.total_count %>件）</div>
+  <div class="col-sm-10 col-md-3 ">
+ <%= render "public/searches/genre_sidebar", genres: @genres %>
+  </div>
+  
+  <div class="col-sm-10 col-md-8 ml-3">
 
-<%= render "public/items/item_index", items: @items %>
+    <h3>"<%= @keyword %>"の検索結果</h3>
+    <div>（全<%= @items.total_count %>件）</div>
+    
+    <%= render "public/items/item_index", items: @items %>
+  </div>
