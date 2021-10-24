@@ -2,14 +2,11 @@ require 'rails_helper'
 
 describe "登録情報変更〜退会", type: :system do
   let!(:admin) { create(:admin) }
+  let!(:customer) { create(:customer) }
   let!(:genre) { create(:genre) }
   let!(:item) { create(:item, genre: genre) }
-  let!(:customer) { create(:customer) }
-  let!(:order) { create(:order, customer: customer) }
-  let!(:order_item) { create(:order_item, order: order, item: item) }
-  let!(:cart_item) { create(:cart_item, customer: customer, item: item) }
 
-  describe "会員側" do
+  describe "会員としてログインした場合" do
     before "会員としてログインする" do
       visit new_customer_session_path
       fill_in "customer[email]", with: customer.email
@@ -49,12 +46,74 @@ describe "登録情報変更〜退会", type: :system do
         expect(page).to have_content item.add_tax_included_price.to_s(:delimited)
       end
     end
-    describe "会員機能" do
+    context "配送先一覧画面に遷移した場合" do
+      before "配送先一覧画面に遷移する" do
+        visit customer_path
+        find('a[href = "/shipping_addresses"]', text: "一覧を見る").click
+      end
+      it "4.配送先一覧画面に遷移する,17.配送先一覧画面に遷移する" do
+        expect(current_path).to eq "/shipping_addresses"
+      end
+      context "配送先を新規登録した場合" do
+        before "各項目を入力し、登録ボタンを押下する" do
+          visit shipping_addresses_path
+          fill_in 'shipping_address[post_code]', with: "9999999"
+          fill_in 'shipping_address[address]', with: "z県"
+          fill_in 'shipping_address[name]', with: "山田花子"
+          click_button "新規登録"
+        end
+        it "5.自画面が再描画される" do
+          expect(current_path).to eq "/shipping_addresses"
+        end
+        it "6.登録した内容が表示されている,18.「５」で登録した住所が表示されている" do
+          expect(page).to have_content "9999999"
+          expect(page).to have_content "z県"
+          expect(page).to have_content "山田花子"
+        end
+        context "カートに商品を入れた場合" do
+          before "商品ページに遷移し、商品個数を選択後、カートに入れるをクリックする" do
+            visit item_path(item)
+            select "10", from: "quantity"
+            click_button "カートに入れる"
+          end
+          it "10.カート画面に遷移する" do
+            expect(current_path).to eq "/cart_items"
+          end
+          it "11.カートの中身が正しく表示されている" do
+            expect(page).to have_content item.name
+            expect(page).to have_content 10
+          end
+          context "注文情報入力画面に遷移した場合" do
+            before "注文情報入力画面に遷移する" do
+              visit cart_items_path
+              click_link "情報入力に進む"
+            end
+            it "12.情報入力画面に遷移する" do
+              expect(current_path).to eq "/orders/new"
+            end
+            it "13.「５」で登録した住所が選択できるようになっている" do
+              expect(page).to have_select("shipping_address_id", options: [ShippingAddress.last.in_one_line] )
+            end
+            context "注文を確定した場合" do
+              before "任意の支払方法、登録した住所を選択し、購入ボタンを押下する" do
+                select ShippingAddress.last.in_one_line, from: "shipping_address_id"
+                click_button "保存する"
+                click_button "注文を確定する"
+              end
+              it "14.サンクスページに遷移する" do
+                expect(current_path).to eq "/orders/thankyou"
+              end
+            end
+          end
+        end
+      end
+    end
+    context "会員編集画面に遷移した場合" do
       before "会員編集画面に遷移する" do
         visit customer_path
         find('a[href = "/customer/edit"]', text: "編集する").click
       end
-      it "1.会員情報編集画面に遷移する" do
+      it "1.会員情報編集画面に遷移する,20.会員情報編集画面が表示される" do
         expect(current_path).to eq "/customer/edit"
       end
       context "会員情報を変更した場合" do
@@ -105,7 +164,7 @@ describe "登録情報変更〜退会", type: :system do
               expect(page).to have_content "sign up"
               expect(page).to have_content "log in"
             end
-            it "25.ログインが不可" do
+            it "24.ログイン画面に遷移する,25.ログインが不可" do
               visit new_customer_session_path
               fill_in "customer[email]", with: "test@test.com"
               fill_in "customer[password]", with: customer.password
@@ -113,7 +172,7 @@ describe "登録情報変更〜退会", type: :system do
               expect(current_path).to eq "/customer/sign_in"
               expect(page).to have_content "退会済みのアカウントです"
             end
-            describe "管理者画面で退会を確認する" do
+            context "管理者としてログインした場合" do
               before "管理者としてログインする" do
                 visit new_admin_session_path
                 fill_in "admin[email]", with: admin.email
@@ -123,7 +182,7 @@ describe "登録情報変更〜退会", type: :system do
               it "26.管理者トップ画面(顧客の注文履歴一覧)が表示される" do
                 expect(current_path).to eq "/admin"
               end
-              describe "会員一覧画面に遷移する" do
+              context "会員一覧画面に遷移した場合" do
                 before "ヘッダから会員一覧画面へのリンクを押下する" do
                   click_link "会員一覧"
                 end
@@ -133,7 +192,7 @@ describe "登録情報変更〜退会", type: :system do
                 it "28.「２２」で退会したユーザが「退会」になっている" do
                   expect(page).to have_content "退会"
                 end
-                context "会員情報詳細画面に遷移する" do
+                context "会員情報詳細画面に遷移した場合" do
                   before "ヘッダから会員一覧画面へのリンクを押下する" do
                     click_link "lastfirst"
                   end
@@ -154,68 +213,6 @@ describe "登録情報変更〜退会", type: :system do
                   expect(page).to have_content "ログアウトしました。"
                 end
               end
-            end
-          end
-        end
-      end
-    end
-    describe "配送先登録機能" do
-      before "配送先一覧画面に遷移する" do
-        visit customer_path
-        find('a[href = "/shipping_addresses"]', text: "一覧を見る").click
-      end
-      it "4.配送先一覧画面に遷移する,17.配送先一覧画面に遷移する" do
-        expect(current_path).to eq "/shipping_addresses"
-      end
-      context "配送先を新規登録した場合" do
-        before "各項目を入力し、登録ボタンを押下する" do
-          visit shipping_addresses_path
-          fill_in 'shipping_address[post_code]', with: "9999999"
-          fill_in 'shipping_address[address]', with: "z県"
-          fill_in 'shipping_address[name]', with: "山田花子"
-          click_button "新規登録"
-        end
-        it "5.自画面が再描画される" do
-          expect(current_path).to eq "/shipping_addresses"
-        end
-        it "6.登録した内容が表示されている,18.「５」で登録した住所が表示されている" do
-          expect(page).to have_content "9999999"
-          expect(page).to have_content "z県"
-          expect(page).to have_content "山田花子"
-        end
-        describe "カート機能" do
-          before "商品ページに遷移し、商品個数を選択後、カートに入れるをクリックする" do
-            visit item_path(item)
-            select "10", from: "quantity"
-            click_button "カートに入れる"
-          end
-          it "10.カート画面に遷移する" do
-            expect(current_path).to eq "/cart_items"
-          end
-          it "6.登録した内容が表示されている" do
-            expect(page).to have_content item.name
-            expect(page).to have_content 10
-          end
-        end
-        describe "注文機能" do
-          before "注文情報入力画面に遷移する" do
-            visit cart_items_path
-            click_link "情報入力に進む"
-          end
-          it "12.情報入力画面に遷移する" do
-            expect(current_path).to eq "/orders/new"
-          end
-          it "13.「５」で登録した住所が選択できるようになっている" do
-            expect(page).to have_select("shipping_address_id", options: [ShippingAddress.last.in_one_line] )
-          end
-          describe "注文確定" do
-            before "任意の支払方法、登録した住所を選択し、購入ボタンを押下する" do
-              select ShippingAddress.last.in_one_line, from: "shipping_address_id"
-              click_button "保存する"
-              click_button "注文を確定する"
-            end
-            it "14.サンクスページに遷移する" do
-              expect(current_path).to eq "/orders/thankyou"
             end
           end
         end

@@ -2,13 +2,13 @@ require 'rails_helper'
 
 describe "製作～発送", type: :system do
   let!(:admin) { create(:admin) }
+  let!(:customer) { create(:customer) }
   let!(:genre) { create(:genre) }
   let!(:item) { create(:item, genre: genre) }
-  let!(:customer) { create(:customer) }
   let!(:order) { create(:order, customer: customer) }
   let!(:order_item) { create(:order_item, order: order, item: item) }
 
-  describe "管理者側" do
+  context "管理者としてログインした場合" do
     before "管理者としてログインする" do
       visit new_admin_session_path
       fill_in "admin[email]", with: admin.email
@@ -28,7 +28,7 @@ describe "製作～発送", type: :system do
         expect(current_path).to eq "/admin/sign_in"
       end
     end
-    describe "注文ステータス変更機能" do
+    context "注文詳細画面に遷移した場合" do
       before do
         visit admin_order_path(order)
       end
@@ -47,49 +47,52 @@ describe "製作～発送", type: :system do
         page.all(".btn-success")[1].click
         expect(page).to have_select("order[order_status]", selected: "発送準備中")
       end
-      it "6.注文ステータスが「発送済み」に更新される" do
-        select "発送済み", from: "order[order_status]"
-        page.all(".btn-success")[0].click
-        expect(page).to have_select("order[order_status]", selected: "発送済み")
-      end
-    end
-  end
-  describe "会員側" do
-    before "会員としてログインする" do
-      visit new_customer_session_path
-      fill_in "customer[email]", with: customer.email
-      fill_in "customer[password]", with: customer.password
-      click_button "ログイン"
-    end
-    describe "ヘッダー変更機能" do
-      it "9.ヘッダがログイン後の表示に変わっている" do
-        expect(page).to have_content "ようこそ、" + customer.full_name + "さん！"
-      end
-    end
-    describe "画面遷移機能" do
-      it "8.トップ画面に遷移する" do
-        expect(current_path).to eq "/"
-      end
-      it "10.マイページが表示される" do
-        click_link "マイページ"
-        expect(current_path).to eq "/customer"
-      end
-      it "12.注文履歴一覧に遷移する" do
-        visit customer_path
-        find('a[href = "/orders"]', text: "一覧を見る").click
-        expect(current_path).to eq "/orders"
-      end
-      it "13.注文履歴詳細画面に遷移する" do
-        visit orders_path
-        find("a", text: "表示する").click
-        expect(current_path).to eq "/orders/" + order.id.to_s
-      end
-    end
-    describe "注文ステータス変更機能" do
-      it "13.注文のステータスが「発送済み」になっている" do
-        order.update(order_status: "shipped")
-        visit order_path(order)
-        expect(page).to have_content "発送済み"
+      context "注文ステータスを発送済みに変更した場合" do
+        before do
+          select "発送済み", from: "order[order_status]"
+          page.all(".btn-success")[0].click
+        end
+        it "6.注文ステータスが「発送済み」に更新される" do
+          expect(page).to have_select("order[order_status]", selected: "発送済み")
+        end
+        context "会員としログインした場合" do
+          before "会員としてログインする" do
+            visit new_customer_session_path
+            fill_in "customer[email]", with: customer.email
+            fill_in "customer[password]", with: customer.password
+            click_button "ログイン"
+          end
+          describe "ヘッダー変更機能" do
+            it "9.ヘッダがログイン後の表示に変わっている" do
+              expect(page).to have_content "ようこそ、" + customer.full_name + "さん！"
+            end
+          end
+          describe "ヘッダーの画面遷移機能" do
+            it "8.トップ画面に遷移する" do
+              expect(current_path).to eq "/"
+            end
+            it "10.マイページが表示される" do
+              click_link "マイページ"
+              expect(current_path).to eq "/customer"
+            end
+            it "11.注文履歴一覧に遷移する" do
+              visit customer_path
+              find('a[href = "/orders"]', text: "一覧を見る").click
+              expect(current_path).to eq "/orders"
+            end
+            it "12.注文履歴詳細画面に遷移する" do
+              visit orders_path
+              find("a", text: "表示する").click
+              expect(current_path).to eq "/orders/" + order.id.to_s
+            end
+          end
+          describe "注文ステータス変更機能" do
+            it "13.注文のステータスが「発送済み」になっている" do
+              visit order_path(order)
+              expect(page).to have_content "発送済み"
+            end
+          end
+        end
       end
     end
   end
