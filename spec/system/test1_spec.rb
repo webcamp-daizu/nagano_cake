@@ -106,7 +106,6 @@ describe 'adminテスト', type: :system do
             image_path = Rails.root.join('app/assets/images/test.jpg')
             attach_file('item[image]', image_path)
             click_button '新規登録'
-            binding.pry
           end
           it '10.登録した商品の詳細画面に遷移する' do
             expect(current_path).to eq '/admin/items/' + Item.last.id.to_s

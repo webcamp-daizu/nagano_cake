@@ -100,7 +100,6 @@ describe "登録情報変更〜退会", type: :system do
                 choose "登録済み住所から選択"
                 select ShippingAddress.last.in_one_line, from: "shipping_address_id"
                 click_button "確認画面へ進む"
-                  click_button "注文を確定する"
               end
               it "注文確認画面が表示される" do
                 expect(current_path).to eq "/orders/check"
@@ -111,14 +110,14 @@ describe "登録情報変更〜退会", type: :system do
                 expect(page).to have_content "z県"
                 expect(page).to have_content "山田花子"
               end
-              # context "注文を確定した場合" do
-              #   before do
-              #     click_button "注文を確定する"
-              #   end
-              #   it "14.サンクスページに遷移する" do
-              #     expect(current_path).to eq "/orders/thankyou"
-              #   end
-              # end
+              context "注文を確定した場合" do
+                before do
+                  click_button "注文を確定する"
+                end
+                it "14.サンクスページに遷移する" do
+                  expect(current_path).to eq "/orders/thankyou"
+                end
+              end
             end
           end
         end
