@@ -4,7 +4,7 @@ describe 'ECサイトテスト', type: :system do
   let(:admin) { create(:admin) }
   let(:customer) { create(:customer) }
   let!(:genre) { create(:genre) }
-  let!(:item) { create(:item) 
+  let!(:item) { create(:item) }
   before do
     visit root_path
     click_link 'Sign up'
@@ -218,11 +218,11 @@ describe 'ECサイトテスト', type: :system do
                     end
                   end
                 end
-              end        
+              end
             end
           end
         end
       end
-    end 
+    end
   end
 end
