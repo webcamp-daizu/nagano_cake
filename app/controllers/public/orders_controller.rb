@@ -3,7 +3,7 @@ class Public::OrdersController < ApplicationController
   before_action :check_cart_is_not_empty, except: [:index, :show, :thankyou]
 
   def index
-    @orders = current_customer.orders
+    @orders = current_customer.orders.order(created_at: :desc)
   end
 
   def show
