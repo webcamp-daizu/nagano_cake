@@ -1,0 +1,44 @@
+<h3 class="ml-5">注文情報入力</h3>
+
+<%= form_with url: check_orders_path, local: true, method: :post do |f| %>
+  <p class="font-weight-bold pt-3">支払方法</p>
+  <div class="col ml-3">
+    <%= f.collection_radio_buttons :payment_method, Order.payment_methods_i18n, :first, :last, { checked: @order.payment_method ||= "credit_card" } %>
+  </div>
+  
+  <p class="font-weight-bold pt-3">お届け先</p>
+  <div class="col ml-3">
+    <%= f.radio_button :address_number, 1, checked: @address_number ||= 1 == 1  %>
+    <%= f.label :address_number, "ご自身の住所", value: 1 %>
+    <div class="col"><%= @order.customer.address_in_one_line %></div>
+  </div>
+
+  <div class="col ml-3 mt-5">
+    <%= f.radio_button :address_number, 2, checked: @address_number == 2 %>
+    <%= f.label :address_number, "登録済み住所から選択", value: 2 %><br>
+    <div class="col"><%= f.select :shipping_address_id, current_customer.reload.shipping_addresses.map { |a| [a.in_one_line, a.id] } %></div>
+  </div>
+  
+  <div class="col ml-3 mt-5">
+    <%= f.radio_button :address_number, 3, checked: @address_number == 3 %>
+    <%= f.label :address_number, "新しいお届け先", value: 3 %>
+    <div class="col">
+      <div class="row form-group">
+        <div class="col-md-4"><%= f.label :post_code, "郵便番号(ハイフンなし)" %></div>
+        <div class="col-md-5"><%= f.text_field :post_code, value: @shipping_address.post_code ,class:"form-control"%></div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-4"><%= f.label :address, "住所" %></div>
+        <div class="col-md-7"><%= f.text_field :address, value: @shipping_address.address ,class:"form-control"%></div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-4"><%= f.label :name, "宛名" %></div>
+        <div class="col-md-5"><%= f.text_field :name, value: @shipping_address.name ,class:"form-control"%></div>
+      </div>
+    </div>
+  </div>
+    
+  <div class="form-group text-center pt-5">
+    <%= f.submit "確認画面へ進む" ,class:"btn btn-primary",style:"width:150px"%>
+  </div>
+  <% end %>

@@ -1,0 +1,88 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+@import 'bootstrap';
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Klee+One&family=Kosugi+Maru&family=Zen+Maru+Gothic:wght@500&family=Zilla+Slab&display=swap');
+
+*{
+  font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+body{
+  background-image: image-url('paper.jpg');
+}
+
+
+h3{
+  background-color: #DDDDDD;
+  display: inline-block;
+}
+
+
+header{
+  background-image: image-url('black.jpeg');
+}
+
+header nav{
+  background-image: image-url('black.jpeg');
+}
+
+.nav-link {
+  background-color: #EEEEEE;
+}
+
+footer {
+  background-image: image-url('black.jpeg');
+}
+
+.pagination {
+  justify-content: center;
+}
+
+.pagination>li>a {
+  color: #808080;
+}
+
+h7{
+  background-color: #EEEEEE;
+  display: inline-block;
+}
+
+// トップページの画像
+.top{
+  position: relative;
+  width: 600px;
+}
+
+.topimage{
+  filter: blur(1px);
+  width: 100%;
+  box-shadow: inset 0px 0px 15px 15px #fff;
+  border-radius: 10px;
+}
+
+.top p{
+  position: absolute;
+  color: white;
+  bottom: 0;
+  right: 5px;
+}
+
+.card{
+  width:180px;
+  background-image: image-url('card.jpg');
+}

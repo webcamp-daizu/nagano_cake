@@ -1,0 +1,25 @@
+<div class="row">
+
+  <div class="col-md-3 mr-5">
+    <%= render "public/searches/genre_sidebar", genres: @genres %>
+  </div>
+
+  <div class="col-md-8 ">
+    
+    <div class="top row mr-auto">
+      <%= image_tag "top.jpg" , class:"topimage" %>
+      <p class="text-right">ようこそ、ながのCAKEへ！<br/>
+      このサイトは、ケーキ販売のECサイトになります。<br/>
+      会員でない方も商品の閲覧はできますが、<br/>
+      購入には会員登録が必要になります。</p>
+    </div>
+    
+    <h3 class="mt-5">新着商品</h3>
+    <%= render "public/items/item_index", items: @items %>
+    
+    <div class="text-right mt-5">
+      <%=link_to "全ての商品を見る>" ,items_path %>
+    </div>
+
+  </div>
+</div>

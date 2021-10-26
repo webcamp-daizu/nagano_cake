@@ -1,0 +1,21 @@
+<div class="row">
+
+  <div class="col-md-3 mr-5">
+    <%= render "public/searches/genre_sidebar", genres: @genres %>
+  </div>
+
+  <div class="col-md-8 ">
+
+    <h3>商品一覧</h3>
+    <div>（全<%= @items.total_count %>件）</div>
+
+    <%= render "public/items/item_index", items: @items %>
+    
+    <div class="mt-5">
+      <%= paginate @items %>
+    </div>
+    
+  </div>
+  
+</div>
+
