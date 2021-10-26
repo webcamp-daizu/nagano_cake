@@ -1,24 +1,51 @@
-# README
+# Nagano-Cake_ECサイト
+__________
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 機能一覧
+会員側
+- ログイン/ログアウト
+- 会員登録/退会/編集
+- 配送先追加/編集
+- 商品一覧/詳細
+- 検索(商品名,ジャンル名）
+- カート(商品追加/一覧/編集)
+- 注文（支払い方法,配送先の選択）
+- 注文履歴一覧/詳細
 
-Things you may want to cover:
+管理者側
+- ログイン/ログアウト
+- 注文履歴の一覧/詳細（注文ステータス, 製作ステータスの切り替えが可能）
+- 会員一覧/詳細（会員ステータスを有効/退会に切り替えが可能）
+- 商品一覧/詳細/編集（販売ステータスの変更が可能）
+- 商品のジャンル設定
+- 検索(商品名)
 
-* Ruby version
+___________
 
-* System dependencies
+### 環境
+- Ruby2.6.3
+- Rails5.2.6
+- HTML5
+- CSS3
 
-* Configuration
+___________
 
-* Database creation
+### Gem
+- devise
+- refile
+- refile-mini_magick
+- bootstrap
+- jquery-rails
+- kaminari
+- font-awesome-sass
+- enum_help
+- pry-byebug
+- rspec-rails
 
-* Database initialization
+___________
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### 開発メンバー
+- ひらちゃん
+- ちー
+- かわむー
+- ありちゃん
